@@ -1,0 +1,23 @@
+future: true
+comments: true
+
+kramdown:
+  toc_levels: 1..2
+highlighter: rouge
+gems:
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+
+
+owner:
+  name: Derek
+  email: Derek0883@gmail.com
+  twitter:
+  google:
+    ad-client:
+    ad-slot:
+  bio:
+  avatar: bio-photo.jpg # 160x160 px image for author byline
+  disqus-shortname: derek0883
+  comments: true
