@@ -26,7 +26,7 @@ For example, given n = 3, a solution set is:
 ]
 ```
 
-The following video show you how to draw the recursion tree step by step.
+### Video explanation
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JKXs7a4RMFU" frameborder="0" allowfullscreen></iframe>
 
