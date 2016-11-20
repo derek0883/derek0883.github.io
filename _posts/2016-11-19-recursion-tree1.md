@@ -32,7 +32,7 @@ If nums = [1,2,3], a solution is:
 ]
 ```
 
-The following video show you how to draw the recursion tree step by step.
+### Video explanation
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rxitBSy8pZ0" frameborder="0" allowfullscreen></iframe>
 
