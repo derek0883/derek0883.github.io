@@ -2,7 +2,7 @@
 layout: post 
 serial: "From brute force to ultimate optimization - Recursion"
 title: "Recursion - The queen of algorithm"
-categories: algorithm
+categories: Algorithm
 comments: true
 ---
 
