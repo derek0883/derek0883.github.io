@@ -10,7 +10,7 @@ title: Derek's Blog
 {% for post in site.posts %}
     <tr>
       <th><a href='{{ post.url }}'>{{ post.title }}</a></th>
-      <td>{{ post.date | date_to_string }}</td>
+      <td>{{ post.categories }}</td>
       <td><a href='{{post.url}}#disqus_thread'>Comments</a></td>
     </tr>
 {% endfor %}

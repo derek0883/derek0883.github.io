@@ -2,7 +2,7 @@
 layout: post 
 serial: "From brute force to ultimate optimization - Recursion"
 title: "Recursion tree and recursion tree traversal II"
-categories: algorithm
+categories: Algorithm
 comments: true
 ---
 
