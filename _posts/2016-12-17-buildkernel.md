@@ -63,6 +63,9 @@ So I add a new file: kernel/configs/testing.config
 ```
 CONFIG_DEBUG_INFO=y 
 CONFIG_IRQ_DOMAIN_DEBUG=y
+CONFIG_DYNAMIC_DEBUG=y
+CONFIG_BLK_DEV_RAM=y
+CONFIG_ACPI_DEBUG=y
 ```
 
 And change scripts/kconfig/Makefile to handle this.
@@ -142,4 +145,89 @@ At the end, checkin those changes to my own branch.
 ```bash
 $ git add kernel/configs/testing.config
 $ git commit -a -m "add my kernel configuration"
+```
+
+## Change password for cloud image
+For kernel study purpose, I don't want spend too much time to build my own rootfile system,
+cirros is small and fast, but it is build with busybox, sometime I want run some other command, e.g. gdb in guest system.
+so I need a distribution linux as root filesystem. There are many options available on 
+[Openstack](http://docs.openstack.org/image-guide/obtain-images.html){:target="_blank"}
+I will use ubuntu, download xenial-server-cloudimg-amd64-disk1.img. 
+By default it doesn't allow you to login with password, you need change password for cloud image.
+follow [this link](https://access.redhat.com/discussions/664843){:target="_blank"} 
+or [this link](http://docs.openstack.org/image-guide/modify-images.html){:target="_blank"}
+to change password for cloud image.
+
+```bash
+$ sudo apt install guestfish libguestfs-tools
+
+$ sudo guestfish --rw -a xenial-server-cloudimg-amd64-disk1.img
+><fs> run
+><fs> list-filesystems
+><fs> mount /dev/sda1 /
+><fs> vi /etc/shadow
+```
+
+On another terminal, you can replace password to other string, this is the password you need to login to guest.
+
+```bash
+$ openssl passwd -1 password
+$1$qku9hhg8$KBrgkCQu8Hn8InuBX/9W1/
+```
+
+Now copy the encrypted output to /etc/shadow file. Change root and ubuntu
+
+```
+root:*:17148:0:99999:7:::
+ubuntu:*:17148:0:99999:7:::
+```
+
+to
+
+```
+root:$1$qku9hhg8$KBrgkCQu8Hn8InuBX/9W1/:17148:0:99999:7:::
+ubuntu:$1$qku9hhg8$KBrgkCQu8Hn8InuBX/9W1/:17148:0:99999:7:::
+```
+
+Now quit and boot your kernel with ubuntu root file system.
+
+```bash
+><fs> umount /
+><fs> quit
+
+qemu-2.8.0-rc0 $ ./x86_64-softmmu/qemu-system-x86_64 \
+		-kernel bzImage -hda xenial-server-cloudimg-amd64-disk1.img -nographic \
+		-append "console=ttyS0 root=/dev/sda1"
+```
+
+Then you can login with username: ubuntu, and password: password.
+
+You can add the following to /etc/profile
+
+```bash
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+        export TERM='xterm-256color'
+else
+        export TERM='xterm-color'
+fi
+```
+
+## Disable cloud-init
+I don't need cloud-init, it just takes too long to boot up. 
+
+```bash
+$ sudo guestfish --rw -a xenial-server-cloudimg-amd64-disk1.img
+><fs> run
+><fs> list-filesystems
+><fs> mount /dev/sda1 /
+><fs> touch /etc/cloud/cloud-init.disabled
+><fs> umount /
+><fs> quit
+```
+
+Or you can boot with cloud-init=disabled on kernel command line.
+```bash
+qemu-2.8.0-rc0 $ ./x86_64-softmmu/qemu-system-x86_64 --enable-kvm \
+		-kernel bzImage -hda xenial-server-cloudimg-amd64-disk1.img -nographic \
+		-append "console=ttyS0 root=/dev/sda1 cloud-init=disabled"
 ```

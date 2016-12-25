@@ -13,7 +13,8 @@ Make sure you have libsdl-dev installed, e.g. libsdl1.2-dev, other wise, when yo
 or you can use GTK. To speed up the building processing, I only build target for i386,x86_64,ppc and arm.
 
 ```bash
-$ ./configure --enable-trace-backend=simple --target-list=i386-softmmu,x86_64-softmmu,ppc-softmmu,arm-softmmu --enable-debug --extra-cflags=-g3
+$ ./configure --enable-trace-backend=simple --target-list=i386-softmmu, \
+	x86_64-softmmu,ppc-softmmu,arm-softmmu --enable-debug --extra-cflags=-g3
 
 SDL support       yes (1.2.15)
 GTK support       no
@@ -51,6 +52,7 @@ load_file 12734.305 pid=11013 name=efi-e1000.rom path=/xx/qemu-2.8.0-rc0/pc-bios
 ```
 
 "-monitor stdio" provide a CLI interface, so you can interact with QEMU. e.g. 
+
 ```bash
 # list status of all trace-events
 (qemu) info trace-events 
@@ -62,6 +64,7 @@ balloon_event : state 0
 cpu_out : state 0
 
 # Disable load_file
+
 (qemu) trace-event load_file off
 
 # Check status of load_file again
@@ -112,6 +115,13 @@ $ ./scripts/simpletrace.py trace-events trace-11123
 
 tcg_gen_code 22223.773 pid=11013 cs=0xffff0000 pc=0xfffffff0
 tcg_gen_code 86.982 pid=11013 cs=0xf0000 pc=0xfe05b
+```
+
+You may got empty output, that because QEMU has not write output buffer to trace-pid(trace-11123) yet. 
+if you get empty output, please try to flush trace-file.
+
+```
+(qemu) trace-file flush
 ```
 
 You can also use CLI to disable/enable the trace event you just added:
