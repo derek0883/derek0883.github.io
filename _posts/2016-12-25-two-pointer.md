@@ -264,10 +264,8 @@ private String twoPointer(String s, String t) {
     String r = "";
     int minLen = s.length();
     while (R < s.length()) {
-        while (R < s.length() && addChar(s.charAt(R)) < t.length()) {
+        while (R < s.length() && addChar(s.charAt(R)) < t.length())
             R++;
-            continue;
-        } 
         while (delChar(s.charAt(L)) >= t.length())
             L++;
         if (R-L+1 <= minLen) {
