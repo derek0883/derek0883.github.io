@@ -126,7 +126,7 @@ private int delChar(char c) {
 
 ## DFS + memorize O(n^2) time complexity solution
 Now we are ready for a DFS Top Down solution, 
-here we a looking for minimal length. when we found subS contian T,
+here we are looking for minimal length. when we found subS contian T,
 it may not the minimal length, we need continue examine each sub tree of S, 
 only if all sub tree return empty, then we can return subS.
 
@@ -134,6 +134,11 @@ You should watch above video explanation if you don't understand.
 
 This introduced a extra complexity to this problem. that's why BFS is better solution.
 But as a practice, it is still worth to pratice DFS, it will improve your skill to use DFS solve problem.
+
+You should watch my previous post if you DFS + memorizing if new to you. e.g.
+1. [Recursion to 1 dimensional dynamic programming I]({% post_url 2016-11-20-1d-dynamic1 %})
+2. [Recursion to 1 dimensional dynamic programing II]({% post_url 2016-11-20-1d-dynamic2 %})
+3. [Recursion to 1 dimensional dynamic programing III]({% post_url 2016-11-20-1d-dynamic3 %})
 
 
 ```java

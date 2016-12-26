@@ -21,3 +21,6 @@ owner:
   avatar: bio-photo.jpg # 160x160 px image for author byline
   disqus-shortname: derek0883
   comments: true
+
+# Google services
+google_analytics: UA-89492022-1
