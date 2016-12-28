@@ -1,7 +1,7 @@
 ---
 layout: post 
 serial: "From brute force to ultimate optimization - Recursion"
-title: "Recursion to two point"
+title: "Recursion to two pointer I"
 categories: Algorithm
 comments: true
 ---
