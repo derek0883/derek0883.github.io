@@ -13,7 +13,7 @@ Make sure you have libsdl-dev installed, e.g. libsdl1.2-dev, other wise, when yo
 or you can use GTK. To speed up the building processing, I only build target for i386,x86_64,ppc and arm.
 
 ```bash
-$ ./configure --enable-trace-backend=simple --target-list=i386-softmmu, \
+$ ./configure --enable-trace-backend=simple --target-list=i386-softmmu,\
 	x86_64-softmmu,ppc-softmmu,arm-softmmu --enable-debug --extra-cflags=-g3
 
 SDL support       yes (1.2.15)

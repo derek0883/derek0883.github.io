@@ -226,6 +226,7 @@ $ sudo guestfish --rw -a xenial-server-cloudimg-amd64-disk1.img
 ```
 
 Or you can boot with cloud-init=disabled on kernel command line.
+
 ```bash
 qemu-2.8.0-rc0 $ ./x86_64-softmmu/qemu-system-x86_64 --enable-kvm \
 		-kernel bzImage -hda xenial-server-cloudimg-amd64-disk1.img -nographic \
