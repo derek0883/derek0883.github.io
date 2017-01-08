@@ -112,3 +112,29 @@ then goto /usr/share/systemtap,
 After that, I manually added "#define STAPCONF_MOD_KALLSYMS 1" at front of runtime/linux/autoconf-mod_kallsyms.c.
 
 Then all of my systemtap scripts works again. Cheers!
+
+## SystemTap error on new kernel
+Recently I updated kernel to 4.8.28 on my thinkpad, SystemTap script can't run again, got error:
+
+```
+/usr/share/systemtap/runtime/linux/access_process_vm.h:35:29: error: 
+passing argument 1 of ‘get_user_pages’ makes integer from pointer without a 
+cast [-Werror=int-conversion]
+ret = get_user_pages (tsk, mm, addr, 1, write, 1, &page, &vma);
+```
+
+That becaus Systemtap version is not match newer kernel version, I Use following command to install old kernel back.
+
+```bash
+$ sudo apt install linux-image-4.4.0-59-generic-dbgsym \
+	linux-image-4.4.0-59-generic \
+	linux-headers-4.4.0-59-generic \
+	linux-image-extra-4.4.0-59-generic
+
+```
+
+Use strace to find the error:
+
+```
+$ sudo strace -e open stap --vp 09 -e 'probe kernel.function("sys_open") {log("hello world") exit()}' |& grep vmlinu
+```
