@@ -232,3 +232,20 @@ qemu-2.8.0-rc0 $ ./x86_64-softmmu/qemu-system-x86_64 --enable-kvm \
 		-kernel bzImage -hda xenial-server-cloudimg-amd64-disk1.img -nographic \
 		-append "console=ttyS0 root=/dev/sda1 cloud-init=disabled"
 ```
+
+## Build and install kernel header
+I need compile some program inside guest os, then debug it, So I need install kernel headers.
+
+```bash
+$ make O=../obj/x86_64/ deb-pkg
+```
+
+After it finished, 
+
+```bash
+$ ls ../obj/*.deb
+../obj/linux-headers-4.9.0+_4.9.0+-41_amd64.deb  ../obj/linux-image-4.9.0+-dbg_4.9.0+-41_amd64.deb
+../obj/linux-image-4.9.0+_4.9.0+-41_amd64.deb    ../obj/linux-libc-dev_4.9.0+-41_amd64.deb
+```
+
+Install linux-headers-4.9.0+_4.9.0+-41_amd64.deb and linux-libc-dev_4.9.0+-41_amd64.deb in guest OS.
